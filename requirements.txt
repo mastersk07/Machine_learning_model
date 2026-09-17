@@ -1,0 +1,17 @@
+# Core
+python-dotenv==1.0.1
+requests==2.32.3
+requests-oauthlib==2.0.0
+
+# Voice (optional - only needed for voice mode; requires PyAudio + system mic/speaker)
+SpeechRecognition==3.10.4
+pyttsx3==2.90
+PyAudio==0.2.14
+
+# Web search (no API key required)
+ddgs==9.0.0
+
+# Google Calendar / Gmail (optional)
+google-auth-oauthlib==1.2.1
+google-auth-httplib2==0.2.0
+google-api-python-client==2.144.0
