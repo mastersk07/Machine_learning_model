@@ -1,0 +1,14 @@
+# Optional: only needed for `python -m jarvis.main --voice` (terminal voice
+# mode). The web HUD (jarvis/web/) does NOT need this - it uses the
+# browser's own Web Speech API instead.
+#
+# PyAudio needs a system library before `pip install` will even build it:
+#   macOS:          brew install portaudio
+#   Debian/Ubuntu:   sudo apt install portaudio19-dev python3-pyaudio
+#   Windows:         wheels install directly, no extra step
+#
+# Then: pip install -r requirements.txt -r requirements-cli-voice.txt
+
+SpeechRecognition==3.10.4
+pyttsx3==2.90
+PyAudio==0.2.14

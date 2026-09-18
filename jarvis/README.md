@@ -69,7 +69,9 @@ deliberately NOT built".
 
 ### 3. Voice mode in the CLI (needs your own machine, mic, and speakers)
 
-PyAudio needs system audio libraries first:
+This needs an extra install - `requirements.txt` deliberately does NOT
+include PyAudio, since it fails to build without a system library first
+(and isn't needed at all for the web HUD):
 
 - macOS: `brew install portaudio`
 - Debian/Ubuntu: `sudo apt install portaudio19-dev python3-pyaudio`
@@ -78,6 +80,7 @@ PyAudio needs system audio libraries first:
 Then:
 
 ```bash
+pip install -r requirements-cli-voice.txt
 python -m jarvis.main --voice
 ```
 
