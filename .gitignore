@@ -1,0 +1,9 @@
+.env
+*.pyc
+__pycache__/
+credentials.json
+token.json
+jarvis/workspace/*
+!jarvis/workspace/.gitkeep
+.venv/
+venv/

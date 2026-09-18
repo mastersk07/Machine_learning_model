@@ -1,0 +1,18 @@
+# Core
+python-dotenv==1.0.1
+requests==2.32.3
+requests-oauthlib==2.0.0
+
+# Web HUD interface
+flask==3.0.3
+
+# Web search (no API key required)
+ddgs==9.0.0
+
+# Google Calendar / Gmail (optional)
+google-auth-oauthlib==1.2.1
+google-auth-httplib2==0.2.0
+google-api-python-client==2.144.0
+
+# CLI voice mode (python -m jarvis.main --voice) needs its own system
+# audio libraries before it'll even build - see requirements-cli-voice.txt
