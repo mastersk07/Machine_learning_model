@@ -3,6 +3,9 @@ python-dotenv==1.0.1
 requests==2.32.3
 requests-oauthlib==2.0.0
 
+# Web HUD interface
+flask==3.0.3
+
 # Voice (optional - only needed for voice mode; requires PyAudio + system mic/speaker)
 SpeechRecognition==3.10.4
 pyttsx3==2.90

@@ -39,13 +39,35 @@ This hits `/models` and prints the result (or the actual error). If it
 fails, paste the real error / API docs back so `jarvis/llm.py` can be
 corrected to match TensorX's actual contract.
 
-### 2. Run Jarvis (text mode - always works)
+### 2. Run Jarvis (text mode CLI - always works)
 
 ```bash
 python -m jarvis.main
 ```
 
-### 3. Voice mode (needs your own machine, mic, and speakers)
+### 2b. Run the holographic HUD web interface
+
+```bash
+python -m jarvis.web.app
+```
+
+Then open http://127.0.0.1:5000. This is a local Flask dev server - not
+deployed anywhere, just runs on your machine. It's a dark sci-fi HUD with a
+reactive animated core (Three.js/WebGL) that changes state as you talk to
+Jarvis: idle (slow cyan pulse), listening (green), thinking (amber spin),
+speaking (fast cyan pulse). Voice in/out here uses the **browser's** Web
+Speech API (Chrome/Edge only) instead of PyAudio, so it works without any
+extra system audio setup - click the 🎙 button and allow microphone access
+when the browser prompts you. This was verified working in this sandbox
+for page load, static assets, and the chat API (including the clean
+TensorX-unreachable error path); the LLM call itself is still unverified
+for the same reason as the CLI, see below.
+
+This is a real 3D-animated interface, but it is not a "metaverse" (no
+VR, no persistent 3D world, no avatar) - see the note under "What's
+deliberately NOT built".
+
+### 3. Voice mode in the CLI (needs your own machine, mic, and speakers)
 
 PyAudio needs system audio libraries first:
 
@@ -114,17 +136,30 @@ image URL and isn't wired into the text router yet - call it directly.
 - **No physical-world capability.** This is software running on a computer
   - no cameras, no sensors, no robotics. If the "Jarvis" framing implied
   otherwise, that's fiction, not something this code can do.
+- **No actual "metaverse" / VR interface.** The web HUD is a real animated
+  3D scene rendered with WebGL (Three.js) in a normal browser tab - it
+  looks like a sci-fi holographic display, but it is not a persistent 3D
+  world, has no avatar, and doesn't need or support a VR headset. A true
+  metaverse-style environment is a multi-month game-engine project
+  (Unreal/Unity, 3D asset pipelines, VR SDKs), well beyond what a personal
+  assistant interface needs.
 
 ## Project layout
 
 ```
 jarvis/
-  main.py            entry point (text/voice loop)
+  main.py            CLI entry point (text/voice loop)
   router.py           keyword router: skill match, else fall back to LLM
   llm.py               TensorX chat client
   personality.py       Jarvis system prompt
-  voice.py             STT/TTS wrapper with fallback
+  voice.py             CLI-side STT/TTS wrapper (PyAudio) with fallback
   config.py            env var loading
+  web/
+    app.py              Flask app (HUD web interface)
+    templates/index.html
+    static/style.css     dark sci-fi HUD theme
+    static/hud.js         Three.js reactive animated core
+    static/app.js          chat wiring + browser Web Speech API voice
   skills/
     time_skill.py
     web_search.py       DuckDuckGo, no API key needed
