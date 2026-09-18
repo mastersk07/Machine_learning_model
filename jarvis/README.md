@@ -63,6 +63,43 @@ for page load, static assets, and the chat API (including the clean
 TensorX-unreachable error path); the LLM call itself is still unverified
 for the same reason as the CLI, see below.
 
+### 2c. Open it on your phone (or any device on the same Wi-Fi)
+
+By default the server only listens on `127.0.0.1` (loopback), which is why
+opening `http://127.0.0.1:5000` on your *phone* will never work - that
+address always means "this same device," so your phone would be looking
+for a server on itself, not your computer.
+
+To make it reachable from your phone:
+
+1. Make sure your phone and your computer are on the **same Wi-Fi
+   network**.
+2. Find your computer's local network IP address:
+   - macOS/Linux: `ifconfig | grep "inet "` (or `hostname -I` on Linux)
+   - Windows: `ipconfig` -> look for "IPv4 Address" (something like
+     `192.168.x.x`)
+3. Run the server bound to all interfaces instead of just loopback:
+   ```bash
+   JARVIS_WEB_HOST=0.0.0.0 python -m jarvis.web.app
+   ```
+   (or set `JARVIS_WEB_HOST=0.0.0.0` in `.env` so you don't have to repeat
+   this every time)
+4. On your phone's Chrome, open `http://<that-IP>:5000` - e.g.
+   `http://192.168.1.42:5000`.
+
+**Security note:** this app has no login screen. Binding to `0.0.0.0`
+means *any* device on the same network can open it - fine on your own
+home Wi-Fi, not something to do on a coffee shop/airport/office network
+where you don't trust everyone else on it. Your computer's firewall may
+also prompt you to allow incoming connections the first time you do this;
+you'll need to allow it for your phone to actually connect.
+
+Verified in this sandbox: the server does bind and respond correctly on
+its network-interface address (not just loopback) when
+`JARVIS_WEB_HOST=0.0.0.0` is set - the phone-reachability part itself
+obviously can't be tested from here since there's no phone/LAN in this
+sandbox.
+
 This is a real 3D-animated interface, but it is not a "metaverse" (no
 VR, no persistent 3D world, no avatar) - see the note under "What's
 deliberately NOT built".

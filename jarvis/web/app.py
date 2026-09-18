@@ -56,7 +56,16 @@ def reset():
 
 
 def main() -> None:
-    app.run(host="127.0.0.1", port=5000, debug=False)
+    # Defaults to loopback-only (this machine can reach it, nothing else
+    # can). Set JARVIS_WEB_HOST=0.0.0.0 to also allow other devices on your
+    # local network (e.g. your phone) to connect - this app has no login,
+    # so only do that on a network you trust (e.g. your home Wi-Fi, not a
+    # cafe/airport one), since anyone on the same network could reach it.
+    import os
+
+    host = os.environ.get("JARVIS_WEB_HOST", "127.0.0.1")
+    port = int(os.environ.get("JARVIS_WEB_PORT", "5000"))
+    app.run(host=host, port=port, debug=False)
 
 
 if __name__ == "__main__":
